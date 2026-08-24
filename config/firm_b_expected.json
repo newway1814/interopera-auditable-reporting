@@ -1,0 +1,15 @@
+{
+  "Singapore Government Securities": {"value": "35.0%", "limit": "20–60%", "utilization": "5833 bps", "status": "OK"},
+  "MAS Bills": {"value": "8.0%", "limit": "0–40%", "utilization": "2000 bps", "status": "OK"},
+  "Investment Grade Corporate Bonds": {"value": "33.0%", "limit": "10–50%", "utilization": "6600 bps", "status": "OK"},
+  "High Yield Bonds": {"value": "9.0%", "limit": "0–15%", "utilization": "6000 bps", "status": "OK"},
+  "Foreign Currency Bonds (hedged)": {"value": "5.0%", "limit": "0–20%", "utilization": "2500 bps", "status": "OK"},
+  "Structured Credit (ABS/MBS)": {"value": "6.0%", "limit": "0–10%", "utilization": "6000 bps", "status": "OK"},
+  "Cash & Cash Equivalents": {"value": "4.0%", "limit": "min 5%", "utilization": "n/a", "status": "BREACH"},
+  "Aggregate non-IG exposure": {"value": "21.0%", "limit": "max 20%", "utilization": "10500 bps", "status": "BREACH"},
+  "Largest single corporate issuer": {"value": "8.0%", "limit": "max 8%", "utilization": "10000 bps", "status": "AT LIMIT"},
+  "Largest GRE issuer": {"value": "13.0%", "limit": "max 12%", "utilization": "10833 bps", "status": "BREACH"},
+  "Liquid assets ratio": {"value": "47.0%", "limit": "min 25%", "utilization": "18800 bps", "status": "OK"},
+  "Portfolio modified duration": {"value": "3.88 yrs", "limit": "2.0–6.5 yrs", "utilization": "n/a", "status": "OK"},
+  "Portfolio DV01": {"value": "SGD 38,790 / bp", "limit": "max 85,000", "utilization": "4563 bps", "status": "OK"}
+}

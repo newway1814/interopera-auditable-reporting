@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "firm_id": "firm_b",
+  "display_name": "Firm B",
+  "source": {"document": "sample_docs/firm_B_brief.md", "section": "Firm B's three house conventions", "page": 1},
+  "utilization": {"format": "truncated_bps"},
+  "aggregate_non_ig": {
+    "selector": {
+      "any": [
+        {"field": "asset_class_id", "in": ["asset_class:high_yield", "asset_class:structured_credit"]},
+        {"field": "credit_rating", "rating_below": "BBB-"}
+      ]
+    }
+  },
+  "concentration": {
+    "corporate": {"selector": {"field": "issuer_type", "equals": "corporate"}, "group_by": "issuer_name"},
+    "gre": {"selector": {"field": "issuer_type", "equals": "GRE"}, "group_by": "parent_or_issuer"}
+  }
+}

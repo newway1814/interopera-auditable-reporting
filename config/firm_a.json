@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "firm_id": "firm_a",
+  "display_name": "Firm A",
+  "source": {"document": "config/firm_a.json", "section": "Default guideline reading", "page": 1},
+  "utilization": {"format": "percent_1dp"},
+  "aggregate_non_ig": {
+    "selector": {"field": "asset_class_id", "in": ["asset_class:high_yield", "asset_class:structured_credit"]}
+  },
+  "concentration": {
+    "corporate": {"selector": {"field": "issuer_type", "equals": "corporate"}, "group_by": "issuer_name"},
+    "gre": {"selector": {"field": "issuer_type", "equals": "GRE"}, "group_by": "issuer_name"}
+  }
+}

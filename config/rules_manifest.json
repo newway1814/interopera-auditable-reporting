@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "ingested_at": "2026-08-24T00:00:00Z",
+  "source_document": {
+    "id": "doc:guidelines",
+    "name": "sample_fund_guidelines.pdf",
+    "sha256": "e88d142c204e1054511b0b2daa74bc4872b0f27735460d757465b4cd6ac06180"
+  },
+  "chunks": [
+    {
+      "id": "chunk:allocations_p1",
+      "page": 1,
+      "section": "2. Permitted Investments & Allocation Limits",
+      "summary": "Allocation limits for SGS, MAS Bills, investment-grade corporate bonds, and high-yield bonds.",
+      "match_terms": ["Singapore Government Securities (SGS)", "Investment Grade Corporate Bonds", "High Yield Bonds"],
+      "extraction_confidence": 0.99
+    },
+    {
+      "id": "chunk:allocations_p2",
+      "page": 2,
+      "section": "2. Permitted Investments & Allocation Limits (continued)",
+      "summary": "Allocation limits for foreign-currency bonds, structured credit, cash, and aggregate non-IG exposure.",
+      "match_terms": ["Foreign Currency Bonds (hedged)", "Structured Credit (ABS/MBS)", "Aggregate exposure to non-investment-grade instruments"],
+      "extraction_confidence": 0.99
+    },
+    {
+      "id": "chunk:market_risk_p2",
+      "page": 2,
+      "section": "3.1 Market Risk",
+      "summary": "Modified-duration range, DV01 cap, monitoring frequency, and breach actions.",
+      "match_terms": ["Modified Duration", "Portfolio DV01", "Risk Committee alert"],
+      "extraction_confidence": 0.99
+    },
+    {
+      "id": "chunk:concentration_p2",
+      "page": 2,
+      "section": "3.2 Credit & Counterparty Risk",
+      "summary": "Single-issuer and GRE concentration caps and fallen-angel handling.",
+      "match_terms": ["Single Issuer Concentration", "Government-related entities (GREs)", "fallen angel"],
+      "extraction_confidence": 0.99
+    },
+    {
+      "id": "chunk:liquidity_p2",
+      "page": 2,
+      "section": "3.3 Liquidity Risk",
+      "summary": "Normal-condition liquid-assets floor and eligible liquid asset classes.",
+      "match_terms": ["Liquid assets (SGS + MAS Bills + Cash)", "minimum of 25% of NAV"],
+      "extraction_confidence": 0.99
+    },
+    {
+      "id": "chunk:audit_p3",
+      "page": 3,
+      "section": "5.1 Audit Trail Requirements",
+      "summary": "Provenance, transformation logging, versioning, immutability, and retention requirements.",
+      "match_terms": ["Source data provenance", "Transformation log", "Immutability", "Retention"],
+      "extraction_confidence": 0.99
+    }
+  ],
+  "asset_classes": [
+    {"id": "asset_class:sgs", "name": "Singapore Government Securities", "aliases": ["Singapore Government Securities (SGS)"], "min": "0.20", "max": "0.60", "notes": "AAA-rated only", "chunk_id": "chunk:allocations_p1"},
+    {"id": "asset_class:mas_bills", "name": "MAS Bills", "aliases": [], "min": "0.00", "max": "0.40", "notes": "Liquidity buffer", "chunk_id": "chunk:allocations_p1"},
+    {"id": "asset_class:ig_corporate", "name": "Investment Grade Corporate Bonds", "aliases": [], "min": "0.10", "max": "0.50", "notes": "Minimum BBB-", "chunk_id": "chunk:allocations_p1"},
+    {"id": "asset_class:high_yield", "name": "High Yield Bonds", "aliases": [], "min": "0.00", "max": "0.15", "notes": "Maximum BB+; APAC issuers only", "chunk_id": "chunk:allocations_p1"},
+    {"id": "asset_class:foreign_currency", "name": "Foreign Currency Bonds (hedged)", "aliases": ["Foreign Currency Bonds"], "min": "0.00", "max": "0.20", "notes": "Currency risk fully hedged", "chunk_id": "chunk:allocations_p2"},
+    {"id": "asset_class:structured_credit", "name": "Structured Credit (ABS/MBS)", "aliases": ["Structured Credit"], "min": "0.00", "max": "0.10", "notes": "AAA tranche; pre-approved list", "chunk_id": "chunk:allocations_p2"},
+    {"id": "asset_class:cash", "name": "Cash & Cash Equivalents", "aliases": [], "min": "0.05", "max": "0.25", "notes": "Minimum liquidity floor", "report_limit": "minimum_only", "chunk_id": "chunk:allocations_p2"}
+  ],
+  "aggregates": [
+    {"id": "aggregate:non_ig", "name": "Aggregate non-IG exposure", "max": "0.20", "contributors": ["asset_class:high_yield", "asset_class:structured_credit"], "chunk_id": "chunk:allocations_p2"},
+    {"id": "aggregate:liquid_assets", "name": "Liquid assets", "min": "0.25", "contributors": ["asset_class:sgs", "asset_class:mas_bills", "asset_class:cash"], "chunk_id": "chunk:liquidity_p2"}
+  ],
+  "risk_metrics": [
+    {"id": "risk_metric:modified_duration", "name": "Portfolio modified duration", "min": "2.0", "max": "6.5", "unit": "years", "breach_action": "PM notification within 1h", "owner": "Portfolio Manager", "chunk_id": "chunk:market_risk_p2"},
+    {"id": "risk_metric:dv01", "name": "Portfolio DV01", "max": "85000", "unit": "SGD per bp", "breach_action": "Risk Committee alert", "owner": "Risk Committee", "chunk_id": "chunk:market_risk_p2"},
+    {"id": "risk_metric:single_corporate", "name": "Largest single corporate issuer", "max": "0.08", "unit": "NAV", "breach_action": "Risk & Compliance Committee within 24h", "owner": "Risk & Compliance Committee", "chunk_id": "chunk:concentration_p2"},
+    {"id": "risk_metric:gre", "name": "Largest GRE issuer", "max": "0.12", "unit": "NAV", "breach_action": "Risk & Compliance Committee within 24h", "owner": "Risk & Compliance Committee", "chunk_id": "chunk:concentration_p2"}
+  ],
+  "retention": {"transaction_years": 7, "investor_report_years": 10, "chunk_id": "chunk:audit_p3"}
+}
