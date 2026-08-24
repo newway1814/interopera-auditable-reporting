@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Generated runtime artifacts
+artifacts/
+audit.db
+
+# Local inspection files and bundled dependency junction
+tmp/
+node_modules/
+
+# Editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
